@@ -49,8 +49,7 @@ So let me get this straight... the `bitcoinero deployment` was created by anothe
 __Blue__ is starting to suspect that there may be an unwanted visitor in the cluster. But how to find them? Let's by looking for `ClusterRoles` with high levels of permissions:
 ```console
 #List all ClusterRoles with unlimited access to all APIs and resource types
-kubectl get clusterrole -o json | jq '.items[] | select(.rules[]?.resources == ["*"] and .rules[]?.verbs == ["*"
-] and .rules[]?.verbs == ["*"]) | .metadata.name'
+kubectl get clusterrole -o json | jq '.items[] | select(.rules[]?.resources == ["*"] and .rules[]?.verbs == ["*"] and .rules[]?.verbs == ["*"]) | .metadata.name'
 ```
 
 `cluster-admin` is the only role that *should* be in that list. What is this `privileged-role` that we are also seeing?
@@ -121,12 +120,10 @@ kubectl get pods
 
 Now, when we try to interact with the cluster, we are prompted to login with our Entra credentials.
 
-NOTE: If you are running this lab inside of a managed tenant with strict conditional access policies you may need to run these additional commands to login to the cluster...
-```
-az login
-kubelogin convert-kubeconfig -l azurecli
-```
+!!! note "Note"
+    If you are running this lab inside of a managed tenant with strict conditional access policies you may need to run `az login && kubelogin convert-kubeconfig -l azurecli` before connecting to the cluster.
 
 Confident that the cluster is now running in "Fort Knox" mode, __Blue__ decides to call it a night and head back to bed.
 
-Another layer of security that would be a good idea to investigate here is [Azure Policy](https://learn.microsoft.com/en-us/azure/aks/use-azure-policy).
+!!! note ""
+    Another layer of security that would be a good idea to investigate here is [Azure Policy](https://learn.microsoft.com/en-us/azure/aks/use-azure-policy).
