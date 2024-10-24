@@ -125,5 +125,5 @@ Now, when we try to interact with the cluster, we are prompted to login with our
 
 Confident that the cluster is now running in "Fort Knox" mode, __Blue__ decides to call it a night and head back to bed.
 
-!!! note ""
+!!! note "Note"
     Another layer of security that would be a good idea to investigate here is [Azure Policy](https://learn.microsoft.com/en-us/azure/aks/use-azure-policy).
