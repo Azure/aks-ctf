@@ -1,0 +1,61 @@
+site_name: AKS Capture the Flag
+repo_name: 'azure/aks-ctf'
+repo_url: 'https://github.com/azure/aks-ctf'
+dev_addr: 0.0.0.0:8080
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'red'
+    accent: 'red'
+  icon:
+    logo: material/cloud
+plugins:
+  - search:
+      separator: '[\s\-\.]+'
+      lang:
+        - en
+nav:
+  - Introduction: index.md
+  - Getting Started: azure.md
+  - Scenario 1 Attack: scenario_1_attack.md
+  - Scenario 1 Defense: scenario_1_defense.md
+  - Scenario 2 Attack: scenario_2_attack.md
+  - Scenario 2 Defense: scenario_2_defense.md
+  - Scenario 3 Attack: scenario_3_attack.md
+  - Scenario 3 Defense: scenario_3_defense.md
+  - Wrap Up: wrapup.md
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/azure/aks-ctf
