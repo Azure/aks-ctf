@@ -24,12 +24,6 @@ spec:
       containers:
       - image: ghcr.io/azure/aks-ctf/bitcoinero:latest
         name: bitcoinero
-        command: ["./moneymoneymoney"]
-        args:
-        - -c
-        - "1"
-        - -l
-        - "10"
         resources:
           requests:
             cpu: 100m
