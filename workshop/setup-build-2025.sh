@@ -89,34 +89,6 @@ loadExistingVars(){
   echo "ACR_NAME: $ACR_NAME"
 }
 
-# Function to deploy the Azure resources
-deployAzureResources(){
-
-#echo "Deploying Azure resources..."
-
-# Create the resource group
-az group create -n $RESOURCE_GROUP -l $LOCATION
-
-# Deploy the Vnet, ACR and AKS Cluster via Bicep
-az deployment group create \
-  --resource-group $RESOURCE_GROUP \
-  --template-file ./bicep/main.bicep \
-  --parameters location=${LOCATION} \
-               vnetName=${VNET_NAME} \
-               vnetAddressPrefix=10.224.0.0/12 \
-               subnetName=mySubnet \
-               subnetPrefix=10.224.0.0/16 \
-               aksClusterName=${AKS_NAME} \
-               acrName=${ACR_NAME} \
-               aksNodeCount=2 \
-               aksNodeSize=Standard_DS2_v2 \
-               userIP=${USER_PUBLIC_IP} \
-               sshPublicKey="$(cat ./aks-ssh.pub)"
-
-# Attach AKS to ACR
-#az aks update -n $AKS_NAME -g $RESOURCE_GROUP --attach-acr $ACR_NAME
-}
-
 # Function to deploy the Kubernetes resources
 deployKubernetesResources(){
 kubectl create namespace dev --dry-run=client -o yaml | kubectl apply -f -
@@ -196,10 +168,6 @@ else
 echo "File .env exists. Loading values from .env file..."
 loadExistingVars
 fi
-
-# Deploy the Azure resources
-echo "Deploying Azure resources..."
-deployAzureResources
 
 # Get the cluster and ACR credentials
 echo "Getting the cluster and ACR credentials..."

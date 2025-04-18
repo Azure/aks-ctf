@@ -6,7 +6,10 @@
 
 1. Clone the repo: `git clone https://github.com/azure/aks-ctf.git && cd aks-ctf/workshop`
 
-1. Enable the AKS Resource Provider: `az provider register --namespace Microsoft.ContainerService`
+1. Enable the Resource Providers:
+    * `az provider register --namespace Microsoft.OperationsManagement`
+    * `az provider register --namespace Microsoft.ContainerService`
+
 1. Once inside the Cloud Shell terminal, run setup.sh. This should create a new Project with a single-node Kubernetes cluster that contains the prerequisites for the workshop:
     ```console
     ./setup.sh
