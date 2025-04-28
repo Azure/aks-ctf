@@ -14,31 +14,31 @@ Wait...what is this `bitcoin-injector`?  It's showing as completed, so it's not 
 
 Why is our app running so hot?
 ```
-kubectl get pods
-POD=$(kgpo -l=app=insecure-app -o json | jq '.items[0].metadata.name' -r)
+kubectl get pods -n dev
+POD=$(kubectl get pods -n dev -l=app=insecure-app -o json | jq '.items[0].metadata.name' -r)
 echo $POD
-kubectl exec -it $POD -- ps -ef
+kubectl exec -it $POD -n dev -- ps -ef
 ```
 
 There's a foreign workload `moneymoneymoney` running in our app!  How did this get in here?!
 
-Let's delete the pod: `kubectl delete pod --force --grace-period=0 $POD`.
+Let's delete the pod: `kubectl delete pod --force --grace-period=0 $POD`
 
 But just to be sure, let's verify that process is gone.
 
 ```
-POD=$(kgpo -l=app=insecure-app -o json | jq '.items[0].metadata.name' -r)
-kubectl exec -it $POD -- ps -ef
+POD=$(kubectl get pods -n dev -l=app=insecure-app -o json | jq '.items[0].metadata.name' -r)
+kubectl exec -it $POD -n dev -- ps -ef
 ```
 
 This...is not good.  The miner is running inside the app and restarting the app also restarted the miner.  Is our app infected?!  How could this have happened?!
 
 Let's go re-investigate that `bitcoin-injector` pod:
 ```
-kubectl describe pods bitcoin-injector-xxxxx
+kubectl describe pods -n dev bitcoin-injector-xxxxx
 # Looks like it was started as Job/bitcoin-injector
 
-kubectl logs bitcoin-injector-xxxxx
+kubectl logs -n dev bitcoin-injector-xxxxx
 # Looks like the output of a Docker build command
 ```
 
