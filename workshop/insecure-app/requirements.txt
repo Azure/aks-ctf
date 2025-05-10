@@ -1,4 +1,4 @@
 requests == 2.32.2
-cryptography==43.0.1
+cryptography==44.0.1
 flask==3.0.2
 Flask-BasicAuth==0.2.0
