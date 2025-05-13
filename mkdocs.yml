@@ -18,7 +18,7 @@ plugins:
         - en
 nav:
   - Introduction: index.md
-  - Getting Started: azure.md
+  - Getting Started: getting_started.md
   - Scenario 1 Attack: scenario_1_attack.md
   - Scenario 1 Defense: scenario_1_defense.md
   - Scenario 2 Attack: scenario_2_attack.md
