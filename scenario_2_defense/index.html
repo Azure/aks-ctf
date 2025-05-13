@@ -1,0 +1,808 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../scenario_2_attack/">
+      
+      
+        <link rel="next" href="../scenario_3_attack/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>Scenario 2 Defense - AKS Capture the Flag</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  <script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "omtu0p3yhq");
+</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#persistence-scenario-2-defense" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="AKS Capture the Flag" class="md-header__button md-logo" aria-label="AKS Capture the Flag" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AKS Capture the Flag
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Scenario 2 Defense
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/azure/aks-ctf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    azure/aks-ctf
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="AKS Capture the Flag" class="md-nav__button md-logo" aria-label="AKS Capture the Flag" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
+
+    </a>
+    AKS Capture the Flag
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/azure/aks-ctf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    azure/aks-ctf
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_1_attack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenario 1 Attack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_1_defense/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenario 1 Defense
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_2_attack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenario 2 Attack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Scenario 2 Defense
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Scenario 2 Defense
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#backstory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backstory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backstory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name-blue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Name: Blue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motivations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motivations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defense
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Defense">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#identifying-the-issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Identifying the Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixing-the-leak" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixing the Leak
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_3_attack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenario 3 Attack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_3_defense/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenario 3 Defense
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wrapup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wrap Up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#backstory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backstory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backstory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name-blue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Name: Blue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motivations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motivations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defense
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Defense">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#identifying-the-issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Identifying the Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixing-the-leak" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixing the Leak
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="persistence-scenario-2-defense">Persistence: Scenario 2 Defense<a class="headerlink" href="#persistence-scenario-2-defense" title="Permanent link">&para;</a></h1>
+<h2 id="backstory">Backstory<a class="headerlink" href="#backstory" title="Permanent link">&para;</a></h2>
+<h3 id="name-blue">Name: <strong>Blue</strong><a class="headerlink" href="#name-blue" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Still overworked</li>
+<li>Still can only do the bare minimum</li>
+<li>Uses the defaults when configuring systems</li>
+<li>Usually gets blamed for stability or security issues</li>
+</ul>
+<h3 id="motivations">Motivations<a class="headerlink" href="#motivations" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A week after the first incident, <strong>Blue</strong> gets paged at 3am because “the website is slow again”.</li>
+<li><strong>Blue</strong>, puzzled, takes another look.</li>
+<li><strong>Blue</strong> decides to dust off the résumé “just in case”.</li>
+</ul>
+<h2 id="defense">Defense<a class="headerlink" href="#defense" title="Permanent link">&para;</a></h2>
+<p><strong>Blue</strong> is paged again with the same message as last time. What is going on? Could this be the same problem again?</p>
+<h3 id="identifying-the-issue">Identifying the Issue<a class="headerlink" href="#identifying-the-issue" title="Permanent link">&para;</a></h3>
+<p>Let's run some basic checks again to see if we can find random workloads:</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get pods --all-namespaces</span>
+</code></pre></div>
+<p>It's back! But how? Let's check the audit logs again:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">AKSAuditAdmin</span>
+<span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">RequestUri</span><span class="w"> </span><span class="k">startswith</span><span class="w"> </span><span class="s">&quot;/apis/apps/v1/namespaces/dev/deployments&quot;</span><span class="w"> </span>
+<span class="w">    </span><span class="k">and</span><span class="w"> </span><span class="n">Verb</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">&quot;create&quot;</span><span class="w"> </span>
+<span class="w">    </span><span class="k">and</span><span class="w"> </span><span class="n">ObjectRef</span><span class="w"> </span><span class="k">contains</span><span class="w"> </span><span class="s">&quot;bitcoinero&quot;</span>
+<span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">User</span><span class="p">,</span><span class="w"> </span><span class="n">SourceIps</span><span class="p">,</span><span class="w"> </span><span class="n">UserAgent</span><span class="p">,</span><span class="w"> </span><span class="n">ObjectRef</span><span class="p">,</span><span class="w"> </span><span class="n">TimeGenerated</span>
+</code></pre></div>
+<img alt="Audit logs showing the bitcoinero deployment was created by the metrics-server-account" src="../img/defense-2-auditlogs.png" /></p>
+<p>How did a service account associated with the metrics-server create a deployment? And what is that sourceIP, it looks familiar...</p>
+<p>Let's fetch the public egress IP address for the cluster API server.
+First start a pod we can use to curl out of the cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl run curl --rm -it --image=alpine/curl -- sh</span>
+</code></pre></div>
+<p>From within the pod, fetch the cluster egress ip from an external ip echo service:
+<div class="highlight"><pre><span></span><code><span class="go">curl icanhazip.com</span>
+<span class="go">exit</span>
+</code></pre></div></p>
+<p>So let me get this straight... the <code>bitcoinero deployment</code> was created by another deployment's service account, using curl, from <em>inside</em> the cluster? </p>
+<p><strong>Blue</strong> is starting to suspect that there may be an unwanted visitor in the cluster. But how to find them? Let's by looking for <code>ClusterRoles</code> with high levels of permissions.</p>
+<p>List all ClusterRoles with unlimited access to all APIs and resource types:
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get clusterrole -o json | jq &#39;.items[] | select(.rules[]?.resources == [&quot;*&quot;] and .rules[]?.verbs == [&quot;*&quot;] and .rules[]?.verbs == [&quot;*&quot;]) | .metadata.name&#39;</span>
+</code></pre></div></p>
+<p><code>cluster-admin</code> is the only role that <em>should</em> be in that list. What is this <code>privileged-role</code> that we are also seeing?
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get clusterrolebinding -o json | jq &#39;.items[] | select(.roleRef.name == &quot;privileged-role&quot;)&#39;</span>
+</code></pre></div></p>
+<p>Why would the <code>metrics-server</code> need such high level privileges? Let's take a closer look at that deployment.</p>
+<p>Look at the command that is being run for the deployment.  (Hint: Should a metrics server be running sshd?)
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get deployment -n kube-system metrics-server-deployment -o yaml</span>
+</code></pre></div></p>
+<p>Look at the metric-server service.  (Hint: Should that be public?)
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get svc -n kube-system metrics-server-service -o yaml</span>
+</code></pre></div></p>
+<p><code>metrics-server</code> is actually running an SSH server! And it's running as a privileged container! This is <em>bad</em>. We need to clean this up fast!</p>
+<h3 id="fixing-the-leak">Fixing the Leak<a class="headerlink" href="#fixing-the-leak" title="Permanent link">&para;</a></h3>
+<p><strong>Blue</strong> decides it is time to evict this bad actor once and for all. Let's delete all of their work:
+<div class="highlight"><pre><span></span><code><span class="gp"># </span>Service
+<span class="go">kubectl delete service -n kube-system metrics-server-service --wait=false</span>
+<span class="gp"># </span>Deployment
+<span class="go">kubectl delete deployment -n kube-system metrics-server-deployment --wait=false</span>
+<span class="gp"># </span>ClusterRoleBinding
+<span class="go">kubectl delete clusterrolebinding privileged-binding</span>
+<span class="gp"># </span>ClusterRole
+<span class="go">kubectl delete clusterrole privileged-role</span>
+<span class="gp"># </span>ServiceAccount
+<span class="go">kubectl delete sa -n kube-system metrics-server-account</span>
+<span class="gp"># </span>bitcoinero
+<span class="go">kubectl delete deployment bitcoinero -n dev --wait=false</span>
+</code></pre></div></p>
+<p>The fire is out (for now). But clearly we need more robust security to keep the bad guys out. How can we restrict access to ensure that only trusted users can interact with the cluster control plane?</p>
+<p>Let's enable <a href="https://learn.microsoft.com/en-us/azure/aks/enable-authentication-microsoft-entra-id">Entra ID integration</a> and disable local administrative accounts. This way only users who are authenticated by our Entra tenant will have access to the cluster and we can control what those user can do by managing group membership in Entra.</p>
+<p>First we will want to create a group in Entra that contains all of the cluster admins (and make sure our account is in it so we don't get lockd out):
+<div class="highlight"><pre><span></span><code><span class="go">GROUP_NAME=AKSAdmins$RANDOM</span>
+<span class="go">ADMIN_GROUP=$(az ad group create --display-name &quot;$GROUP_NAME&quot; --mail-nickname &quot;$GROUP_NAME&quot; --query id -o tsv)</span>
+<span class="go">az ad group member add --group &quot;$GROUP_NAME&quot; --member-id $(az ad signed-in-user show --query id -o tsv)</span>
+</code></pre></div></p>
+<p>Now let's enable EntraID integration and disable local accounts: 
+<div class="highlight"><pre><span></span><code><span class="go">az aks update --resource-group $RESOURCE_GROUP --name $AKS_NAME \</span>
+<span class="go">  --enable-aad \</span>
+<span class="go">  --aad-admin-group-object-ids $ADMIN_GROUP \</span>
+<span class="go">  --disable-local-accounts</span>
+</code></pre></div></p>
+<div class="admonition tip tip">
+<p class="admonition-title">Tip</p>
+<p>The above command takes about 8 minutes to complete.</p>
+</div>
+<p>Finally, we need to rotate the cluster certificates in order to invalidate the existing leaked admin credentials. This will require us to authenticate against EntraID for all future cluster administration:
+<div class="highlight"><pre><span></span><code><span class="go">az aks rotate-certs --resource-group $RESOURCE_GROUP --name $AKS_NAME -y</span>
+</code></pre></div></p>
+<div class="admonition tip tip">
+<p class="admonition-title">Tip</p>
+<p>The above command takes about 6 minutes to complete.</p>
+</div>
+<p>We can verify that we have lost access to cluster by running any kubectl command:
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get pods</span>
+</code></pre></div></p>
+<p>To reconnect to the cluster we will need to fetch new credentials, this time backed by Entra:
+<div class="highlight"><pre><span></span><code><span class="go">az aks get-credentials --resource-group $RESOURCE_GROUP --name $AKS_NAME --overwrite-existing</span>
+<span class="go">kubectl get pods -A</span>
+</code></pre></div></p>
+<p>Now, when we try to interact with the cluster, we are prompted to login with our Entra credentials.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are running this lab inside of a managed tenant with strict conditional access policies you may need to run <code>az login &amp;&amp; kubelogin convert-kubeconfig -l azurecli</code> before connecting to the cluster.</p>
+</div>
+<p>Confident that the cluster is now running in "Fort Knox" mode, <strong>Blue</strong> decides to call it a night and head back to bed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Another layer of security that would be a good idea to investigate here is <a href="https://learn.microsoft.com/en-us/azure/aks/use-azure-policy">Azure Policy</a>. But for the purposes of this lab, we will skip it for now.</p>
+</div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/azure/aks-ctf" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+    
+  </body>
+</html>

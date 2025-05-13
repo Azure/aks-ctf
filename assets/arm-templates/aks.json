@@ -1,0 +1,139 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.35.1.17967",
+      "templateHash": "6135982764961881342"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    },
+    "aksClusterName": {
+      "type": "string"
+    },
+    "aksNodeCount": {
+      "type": "int"
+    },
+    "aksNodeSize": {
+      "type": "string"
+    },
+    "subnetId": {
+      "type": "string"
+    },
+    "aksAdminUsername": {
+      "type": "string"
+    },
+    "workspaceId": {
+      "type": "string"
+    },
+    "sshPublicKey": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.ContainerService/managedClusters",
+      "apiVersion": "2024-02-01",
+      "name": "[parameters('aksClusterName')]",
+      "location": "[parameters('location')]",
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "dnsPrefix": "[parameters('aksClusterName')]",
+        "networkProfile": {
+          "networkPlugin": "azure",
+          "networkPluginMode": "overlay"
+        },
+        "addonProfiles": {
+          "omsagent": {
+            "enabled": true,
+            "config": {
+              "logAnalyticsWorkspaceResourceID": "[parameters('workspaceId')]"
+            }
+          }
+        },
+        "agentPoolProfiles": [
+          {
+            "name": "agentpool",
+            "count": "[parameters('aksNodeCount')]",
+            "vmSize": "[parameters('aksNodeSize')]",
+            "vnetSubnetID": "[parameters('subnetId')]",
+            "osType": "Linux",
+            "mode": "System"
+          }
+        ],
+        "linuxProfile": {
+          "adminUsername": "[parameters('aksAdminUsername')]",
+          "ssh": {
+            "publicKeys": [
+              {
+                "keyData": "[parameters('sshPublicKey')]"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Insights/diagnosticSettings",
+      "apiVersion": "2021-05-01-preview",
+      "scope": "[format('Microsoft.ContainerService/managedClusters/{0}', parameters('aksClusterName'))]",
+      "name": "aksDiagnosticSettings",
+      "properties": {
+        "workspaceId": "[parameters('workspaceId')]",
+        "logAnalyticsDestinationType": "Dedicated",
+        "logs": [
+          {
+            "category": "kube-audit",
+            "enabled": true
+          },
+          {
+            "category": "kube-audit-admin",
+            "enabled": true
+          },
+          {
+            "category": "kube-controller-manager",
+            "enabled": true
+          },
+          {
+            "category": "kube-scheduler",
+            "enabled": true
+          },
+          {
+            "category": "cluster-autoscaler",
+            "enabled": true
+          },
+          {
+            "category": "cloud-controller-manager",
+            "enabled": true
+          },
+          {
+            "category": "guard",
+            "enabled": true
+          },
+          {
+            "category": "csi-azuredisk-controller",
+            "enabled": true
+          },
+          {
+            "category": "csi-azurefile-controller",
+            "enabled": true
+          },
+          {
+            "category": "csi-snapshot-controller",
+            "enabled": true
+          }
+        ]
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.ContainerService/managedClusters', parameters('aksClusterName'))]"
+      ]
+    }
+  ]
+}
