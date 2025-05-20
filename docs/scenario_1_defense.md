@@ -83,7 +83,7 @@ kubectl delete deployment bitcoinero -n dev
 
 __Blue__ remembers that when deploying the AKS cluster they had the option to specify what IP addresses are allowed to connect to the public API server of the cluster. Perhaps now is the time to implement that feature. Let's make sure that the API server will only accept connections from __Blue's__ IP as well as any ip within the corporate network:
 ```console
-MY_PUBLIC_IP=$(curl -s ifconfig.me)
+MY_PUBLIC_IP=$(curl -s api.ipify.org)
 az aks update -n $AKS_NAME -g $RESOURCE_GROUP \
     --api-server-authorized-ip-ranges $MY_PUBLIC_IP/32
 ```
