@@ -1,0 +1,733 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../scenario_3_attack/">
+      
+      
+        <link rel="next" href="../wrapup/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>Scenario 3 Defense - AKS Capture the Flag</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  <script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "omtu0p3yhq");
+</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-calls-are-coming-from-inside-the-container-scenario-3-defense" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="AKS Capture the Flag" class="md-header__button md-logo" aria-label="AKS Capture the Flag" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AKS Capture the Flag
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Scenario 3 Defense
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/azure/aks-ctf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    azure/aks-ctf
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="AKS Capture the Flag" class="md-nav__button md-logo" aria-label="AKS Capture the Flag" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
+
+    </a>
+    AKS Capture the Flag
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/azure/aks-ctf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    azure/aks-ctf
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_1_attack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenario 1 Attack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_1_defense/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenario 1 Defense
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_2_attack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenario 2 Attack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_2_defense/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenario 2 Defense
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_3_attack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenario 3 Attack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Scenario 3 Defense
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Scenario 3 Defense
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#remove-the-infected-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove the infected image
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stop-using-container-registry-admin-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stop using container registry admin credentials
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-defender-for-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Defender for Containers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-container-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix container permissions
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wrapup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wrap Up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#remove-the-infected-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove the infected image
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stop-using-container-registry-admin-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stop using container registry admin credentials
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-defender-for-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Defender for Containers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-container-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix container permissions
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="the-calls-are-coming-from-inside-the-container-scenario-3-defense">The calls are coming from inside the container! Scenario 3 Defense<a class="headerlink" href="#the-calls-are-coming-from-inside-the-container-scenario-3-defense" title="Permanent link">&para;</a></h1>
+<p>We've gotten paged.  AGAIN!  Let's check the cluster.</p>
+<p>Any unwanted open ports?<br />
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get service -A</span>
+</code></pre></div></p>
+<p>Any unwanted pods? 
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get pods -A</span>
+</code></pre></div></p>
+<p>Where's the spike coming from? 
+<div class="highlight"><pre><span></span><code><span class="go">kubectl top node</span>
+</code></pre></div></p>
+<p>What pods?<br />
+<div class="highlight"><pre><span></span><code><span class="go">kubectl top pod -A</span>
+</code></pre></div></p>
+<p>Wait...what is this <code>bitcoin-injector</code>?  It's showing as completed, so it's not running anymore, so it can't be causing the problem. Did the hackers get sloppy and leave something behind?  We'll check this out later because we need to stop the bleeding.</p>
+<p>Why is our app running so hot?
+<div class="highlight"><pre><span></span><code>kubectl get pods -n dev
+POD=$(kubectl get pod -n dev -l=app=insecure-app -o json | jq &#39;.items[0].metadata.name&#39; -r)
+echo $POD
+kubectl exec -it $POD -n dev -- ps -ef
+</code></pre></div></p>
+<p>There's a foreign workload <code>moneymoneymoney</code> running in our app!  How did this get in here?!</p>
+<p>Let's delete the pod: 
+<div class="highlight"><pre><span></span><code><span class="go">kubectl delete pod -n dev --force --grace-period=0 $POD</span>
+</code></pre></div></p>
+<p>But just to be sure, let's verify that process is gone.</p>
+<div class="highlight"><pre><span></span><code>POD=$(kubectl get pod -n dev -l=app=insecure-app -o json | jq &#39;.items[0].metadata.name&#39; -r)
+kubectl exec -it $POD -n dev -- ps -ef
+</code></pre></div>
+<p>This...is not good.  The miner is running inside the app and restarting the app also restarted the miner.  Is our app infected?!  How could this have happened?!</p>
+<p>Let's go re-investigate that <code>bitcoin-injector</code> pod:
+<div class="highlight"><pre><span></span><code>kubectl describe pods -n dev -l job-name=bitcoin-injector
+</code></pre></div></p>
+<p>Looks like it was started as Job/bitcoin-injector.</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl logs -n dev -l job-name=bitcoin-injector</span>
+</code></pre></div>
+<p>Looks like the output of a Docker build command...</p>
+<p>It seems like they got our container registry credentials and then used that to push a new one with the exact same name!  But how did they get that?</p>
+<p>Let's look at the Log Analytics Audit Logs:
+<div class="highlight"><pre><span></span><code><span class="n">AKSAuditAdmin</span>
+<span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">RequestUri</span><span class="w"> </span><span class="k">startswith</span><span class="w"> </span><span class="s">&quot;/apis/batch&quot;</span>
+<span class="w">    </span><span class="k">and</span><span class="w"> </span><span class="n">Verb</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">&quot;create&quot;</span><span class="w"> </span>
+<span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">ObjectRef</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="p">,</span><span class="w"> </span><span class="n">SourceIps</span><span class="p">,</span><span class="w"> </span><span class="n">UserAgent</span><span class="p">,</span><span class="w"> </span><span class="n">TimeGenerated</span>
+</code></pre></div></p>
+<p>It appears that the request came from <code>insecure-app</code>.  But how?</p>
+<p>Looking at the source code, it appears there's an <code>/admin</code> page which Frank added this to the code years ago and was fired after that "inappropriate use of company resources" issue.</p>
+<p>And the attackers were able to use this really permissive Service Account role binding to get escalated privledges to the cluster.</p>
+<p>We need a plan of defense:</p>
+<ul>
+<li>Remove the infected image</li>
+<li>Stop using container registry admin credentials</li>
+<li>Enable Defender for Containers </li>
+<li>Downgrade/remove SA permissions (change verbs from * to GET)</li>
+<li>Open Issue to tell developer to remove /admin page</li>
+<li>Re-build and deploy image</li>
+</ul>
+<h2 id="remove-the-infected-image">Remove the infected image<a class="headerlink" href="#remove-the-infected-image" title="Permanent link">&para;</a></h2>
+<p>Let's start by reverting the app deployment to the last known good image. Start by inspecting the image reference in the deployment manifest:
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get deployment insecure-app -n dev -o=jsonpath=&#39;{.spec.template.spec.containers[*].image}&#39;</span>
+</code></pre></div></p>
+<p>The app team deployed by referencing the <code>latest</code> tag for their container image. This exposes their deployment to exploits like the one we just discovered. Let's update their deployment to reference a more specific tag ('1.0'):
+<div class="highlight"><pre><span></span><code>kubectl set image deployment/insecure-app -n dev insecure-app=$ACR_NAME.azurecr.io/insecure-app:1.0
+</code></pre></div></p>
+<p>Updating the image on the deployment also has the side-effect of killing all pods currently running the infected image and relaunching them using the updated image tag.</p>
+<p>Now let's remove the infected image from the registry:
+<div class="highlight"><pre><span></span><code>az acr repository delete -n $ACR_NAME -t insecure-app:latest -y
+</code></pre></div></p>
+<p>Finally, since the infected insecure-app and bitcoinero images are still cached locally on the node, we need to make sure those are removed to prevent another container from starting up with the old images. Let's install the <a href="https://learn.microsoft.com/en-us/azure/aks/image-cleaner">AKS Image Cleaner</a>.  This will ensure that unused images (such as the infected insecure-app and bitcoinero) are cleared from the node.
+<div class="highlight"><pre><span></span><code>az aks update --name $AKS_NAME --resource-group $RESOURCE_GROUP  --enable-image-cleaner
+</code></pre></div></p>
+<h2 id="stop-using-container-registry-admin-credentials">Stop using container registry admin credentials<a class="headerlink" href="#stop-using-container-registry-admin-credentials" title="Permanent link">&para;</a></h2>
+<p>Instead of providing the ACR admin credentials, let's <a href="https://learn.microsoft.com/en-us/azure/aks/cluster-container-registry-integration?tabs=azure-cli#attach-an-acr-to-an-existing-aks-cluster">Attach the ACR to the cluster</a>.</p>
+<div class="highlight"><pre><span></span><code>kubectl delete -n dev secrets/acr-secret
+az aks update --name $AKS_NAME --resource-group $RESOURCE_GROUP --attach-acr $ACR_NAME
+</code></pre></div>
+<h2 id="enable-defender-for-containers">Enable Defender for Containers<a class="headerlink" href="#enable-defender-for-containers" title="Permanent link">&para;</a></h2>
+<p>Now that you've fixed the permissions on pulling images from ACR, you want to get alerted in case anything else gets added to our registry or the cluster.  </p>
+<p>For this, we could enable <a href="https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containers-enable">Azure Defender for Containers</a></p>
+<p>The image injection would have been detected with <a href="https://learn.microsoft.com/en-us/azure/defender-for-cloud/binary-drift-detection">Binary drift detection</a>.  </p>
+<p>The binary drift detection feature alerts you when there's a difference between the workload that came from the image, and the workload running in the container. It alerts you about potential security threats by detecting unauthorized external processes within containers.</p>
+<h2 id="fix-container-permissions">Fix container permissions<a class="headerlink" href="#fix-container-permissions" title="Permanent link">&para;</a></h2>
+<p>Let's look at the problematic cluster role:</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl describe clusterroles insecure-app-role</span>
+</code></pre></div>
+<p>This shows that that this role was able to perform all "verbs" on all "resources" inside the cluster.  That is WAY too permissive!</p>
+<p>We got confirmation from the developer that the app needs to be able to see (but not modify) other pods in the namespace.  </p>
+<p>Instead of a "clusterrole" (which has access to the entire cluster), we should use a "role" (which has access to the specific namespace).</p>
+<p>Let's delete the clusterrole and clusterolebinding and update the role to be less permissive:</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl delete clusterrolebinding insecure-app-binding</span>
+<span class="go">kubectl delete clusterrole insecure-app-role</span>
+<span class="go">kubectl create role pod-reader --verb=get --verb=list --verb=watch --resource=pods</span>
+<span class="go">kubectl create rolebinding pod-reader-binding --role=pod-reader --serviceaccount=dev:insecure-app-sa</span>
+</code></pre></div>
+<p>And with that, we can now rest.</p>
+<p>Hopefully...</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/azure/aks-ctf" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+    
+  </body>
+</html>
